@@ -2,7 +2,7 @@
 #' @param model A merMod object from \pkg{lme4}. Most complicated model to evaluate.
 #' @param threshold Character. \emph{"C95"}, \emph{"D2"}, \emph{"D4"}, \emph{"D6"}, \emph{"D8"}
 #' @param fixed optional, either a single sided formula or a character vector giving names of terms to be included in all models
-#' @param 2rglmm Logical. Compute R2c and R2m for (g)lmm models using \code{\link[MuMIn]{r.squaredGLMM}}
+#' @param r2glmm Logical. Compute R2c and R2m for (g)lmm models using \code{\link[MuMIn]{r.squaredGLMM}}
 #' @details Uses the \code{\link[MuMIn]{dredge}} function which takes the full (i.e. most complex, including all terms of interest and interactions) model and automatically
 #' builds all combinations of simpler models from the provided terms. For each model, AIC values are computed. An average model is built \code{\link[MuMIn]{model.avg}}
 #' using the subset of best models determined by the \emph{threshold} argument. \emph{"C95"} will select the models whose cumulative AICw ≤ 0.95. \emph{"D2"}, \emph{"D4"}, \emph{"D6"}, \emph{"D8"}
@@ -21,7 +21,7 @@
 #' summary(mm1$best.models)
 #' @export
 
-modelaverageFun<-function(model,threshold, fixed=NULL, r2glmm=T){
+modelaverageFun<-function(model,threshold, fixed=NULL, r2glmm=F){
   if (class(model)[1]=="lmerMod"){
     model<-update(model,na.action=na.fail, REML=T)
   } else {

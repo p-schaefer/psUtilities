@@ -1,12 +1,13 @@
 #' Calculates and plots confidence intervals for random effects.
-#' @description Calculates and plots confidence intervals for random effects of \pkg{lme4} models using \code{\link[lme4]{REsim}}
+#' @description Calculates and plots confidence intervals for random effects of \pkg{lme4} models using \code{\link[merTools]{REsim}}
 #'
 #' @param model A merMod object from \pkg{lme4}.
 #' @param model.variable Character. The name of the random effect variable to be computed.
 #' @param data An optional data frame used in \emph{model}
+#' @param group.variable Character. Grouping variable for plots
 #' @param col.variable An optional variable name used to colour the plotted values
 #' @param plot Logical. Should a plot be produced?
-#' @param stat \emph{median} or \emph{mean}
+#' @param stat Character. \emph{median} or \emph{mean}
 #' @param level Numeric. Confidence interval to return
 #' @param oddsRatio Logical. should paramters be converted to odds ratios?
 #' @param nsim Numeric.Number of simulations to use
@@ -18,7 +19,6 @@
 #' require(lme4)
 #' m1 <- lmer(Reaction ~ 1 + (Days | Subject), sleepstudy)
 #' ci1 <- ciFun(model=m1, model.variable= "Days")
-#'
 #' d1<-cbpp
 #' d1$period<-as.numeric(as.character(cbpp$period))
 #' d1$response<-d1$incidence/d1$size
@@ -71,7 +71,7 @@ ciFun<-function(model,model.variable,data=NULL,col.variable=NULL,plot=T,stat="me
         colours<-data[sapply(as.character(plot.output$groupID),function(x) match(x,as.character(eval(parse(text=paste0('data$',group.variable)))))),col.variable]
       }
 
-      plotCI(x=1:sitenum,y=plot.output[, stat],
+      plotrix::plotCI(x=1:sitenum,y=plot.output[, stat],
              li=as.numeric(plot.output$lower),
              ui=as.numeric(plot.output$upper),
              lwd=1,xlab="",ylab="site-specific slope (95% CI)",xaxt="n",las=1,main=paste0(colnames(attr(model,"frame"))[1]),

@@ -4,9 +4,10 @@ Title: Utility functions for ecological analysis
 Version: 0.1.0
 Author: Patrick Schaefer
 Maintainer: Patrick Schaefer <pschaefer@creditvalleyca.ca>
-Description: Utility functions for ecological analysis. 
+Description: Utility functions for ecological analysis. ciFun() calculates confidence intervals for random effect level estimates.influenceFun() calculates Cook's distance on a fitted model to identify observations and groups that are highly influential on the model results.xyplotFun() plots groups and significance based on ciFun(). modelaverageFun() calculates average models for better fixed effects parameter estimates. 
 License: MIT
 Encoding: UTF-8
 LazyData: true
+Depends: R (>= 3.2.0)
 Import: lme4, plotrix, merTools, lattice, influence.ME, MuMIn
 RoxygenNote: 5.0.1

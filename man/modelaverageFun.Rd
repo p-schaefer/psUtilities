@@ -4,7 +4,7 @@
 \alias{modelaverageFun}
 \title{Uses model avaraging to return fixed-effects parameter estimates.}
 \usage{
-modelaverageFun(model, threshold, fixed = NULL, r2glmm = T, ...)
+modelaverageFun(model, threshold, fixed = NULL, r2glmm = F)
 }
 \arguments{
 \item{model}{A merMod object from \pkg{lme4}. Most complicated model to evaluate.}
@@ -13,7 +13,7 @@ modelaverageFun(model, threshold, fixed = NULL, r2glmm = T, ...)
 
 \item{fixed}{optional, either a single sided formula or a character vector giving names of terms to be included in all models}
 
-\item{2rglmm}{Logical. Compute R2c and R2m for (g)lmm models using \code{\link[MuMIn]{r.squaredGLMM}}}
+\item{r2glmm}{Logical. Compute R2c and R2m for (g)lmm models using \code{\link[MuMIn]{r.squaredGLMM}}}
 }
 \value{
 \emph{"$all.models"} Object of class \code{\link[MuMIn]{dredge}}

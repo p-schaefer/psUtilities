@@ -19,7 +19,7 @@ ciFun(model, model.variable, data = NULL, col.variable = NULL, plot = T,
 
 \item{plot}{Logical. Should a plot be produced?}
 
-\item{stat}{\emph{median} or \emph{mean}}
+\item{stat}{Character. \emph{median} or \emph{mean}}
 
 \item{level}{Numeric. Confidence interval to return}
 
@@ -29,13 +29,15 @@ ciFun(model, model.variable, data = NULL, col.variable = NULL, plot = T,
 
 \item{sig.only}{Logical. Should only significant random effect levels be plotted?}
 
+\item{group.variable}{Character. Grouping variable for plots}
+
 \item{...}{other arguments passed to REsim.}
 }
 \value{
 A data frame and plot of confidence intervals.
 }
 \description{
-Calculates and plots confidence intervals for random effects of \pkg{lme4} models using \code{\link[lme4]{REsim}}
+Calculates and plots confidence intervals for random effects of \pkg{lme4} models using \code{\link[merTools]{REsim}}
 }
 \details{
 Use the Gelman sim technique to build empirical Bayes estimates. Uses the sim function in the arm package
@@ -44,7 +46,6 @@ Use the Gelman sim technique to build empirical Bayes estimates. Uses the sim fu
 require(lme4)
 m1 <- lmer(Reaction ~ 1 + (Days | Subject), sleepstudy)
 ci1 <- ciFun(model=m1, model.variable= "Days")
-
 d1<-cbpp
 d1$period<-as.numeric(as.character(cbpp$period))
 d1$response<-d1$incidence/d1$size
