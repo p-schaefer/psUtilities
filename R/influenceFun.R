@@ -35,7 +35,7 @@
 influenceFun<-function (model, model.variable, data, group.variable, inf.type=c("observations","groups"), plot=T,...) {
 
   temp.data<-model.frame(model)
-
+  data<-data[!is.na(eval(parse(text = paste0("data$", colnames(temp.data)[1])))),]
   if (any(names(model@call)=="weights")) {
     temp.data$a<-temp.data[,colnames(model@frame)[1]]*temp.data[,"(weights)"]
     temp.data$b<-temp.data[,"(weights)"]
