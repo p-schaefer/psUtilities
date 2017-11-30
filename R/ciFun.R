@@ -27,12 +27,18 @@
 #' @export
 
 
-ciFun<-function(model,model.variable,data=NULL,col.variable=NULL,plot=T,stat="median",level=0.95,oddsRatio=F,nsim=1000,sig.only=FALSE,group.variable,...){
+ciFun<-function(model,model.variable,data=NULL,col.variable=NULL,
+                plot=T,stat="median",level=0.95,oddsRatio=F,
+                nsim=1000,sig.only=FALSE,group.variable,add.interc.se=F,...){
   sim<-merTools::REsim(model,n.sim=nsim,...)
 
   output<-sim[sim$term==model.variable,]
   output$upper<-output[,stat]+output[,"sd"]*qnorm(1-((1-level)/2))
   output$lower<-output[,stat]-output[,"sd"]*qnorm(1-((1-level)/2))
+  if(add.interc.se){
+    output$upper<-output[,stat]+(output[,"sd"]+coef(summary(model))[1, "Std. Error"])*qnorm(1-((1-level)/2))
+    output$lower<-output[,stat]-(output[,"sd"]+coef(summary(model))[1, "Std. Error"])*qnorm(1-((1-level)/2))
+  }
   output$sig<- output[, "lower"] > 0 | output[, "upper"] < 0
   hlineInt<-0
   if (oddsRatio == TRUE) {
